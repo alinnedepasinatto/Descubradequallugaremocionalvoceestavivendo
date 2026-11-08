@@ -454,21 +454,11 @@
         (index + 1) + ". " + answer + " — " + questions[index]
       );
 
-      const summary = places.map((place, index) => {
-        const firstQuestion = index * 4;
-        const yesCount = answers.slice(firstQuestion, firstQuestion + 4)
-          .filter(answer => answer === "SIM").length;
-        return place.name + " — " + yesCount + " de 4";
-      });
-
       return [
         "Olá, Alinne! Concluí o diagnóstico dos 7 Lugares Emocionais do Método O Seu Lugar® e gostaria de receber minha devolutiva.",
         "",
         "*Minhas respostas*",
-        ...lines,
-        "",
-        "*Resumo de SIM por Lugar Emocional*",
-        ...summary
+        ...lines
       ].join("\n");
     }
 
