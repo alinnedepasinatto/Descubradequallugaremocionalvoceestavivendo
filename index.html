@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Responda a 28 perguntas para reconhecer quais Lugares Emocionais aparecem na sua vida hoje.">
+  <title>Diagnóstico Gratuito | Método O Seu Lugar®</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f7f0e7;
+      --paper: #fffdf9;
+      --ink: #322820;
+      --muted: #67564c;
+      --line: #e7d8cc;
+      --accent: #803e2e;
+      --accent-dark: #633024;
+      --accent-light: #f5e8de;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font: 1rem/1.6 var(--sans);
+    }
+
+    .masthead, main {
+      width: min(100% - 2rem, 52rem);
+      margin-inline: auto;
+    }
+
+    .masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .4rem 1rem;
+      padding-block: 1rem;
+    }
+
+    .brand { margin: 0; font: 1.3rem/1.3 var(--serif); }
+    .brand sup { font: .65em var(--sans); }
+    .tag, .eyebrow {
+      color: var(--accent);
+      font-size: .73rem;
+      font-weight: 750;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .tag { padding: .25rem .65rem; border: 1px solid var(--line); border-radius: 2rem; }
+
+    main { margin-bottom: 3rem; }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 1.15rem;
+      background: var(--paper);
+      padding: clamp(1.2rem, 5vw, 3rem);
+      box-shadow: 0 .5rem 1.75rem #563a2310;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 {
+      margin-bottom: 1rem;
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+    h1 { font-size: clamp(2.1rem, 5.9vw, 3.7rem); }
+    h2 { font-size: clamp(1.7rem, 4.5vw, 2.65rem); }
+    h3 { margin-bottom: .35rem; line-height: 1.35; }
+
+    p { margin-bottom: .85rem; }
+    .eyebrow { margin-bottom: .7rem; }
+
+    .hero { text-align: center; }
+    .hero h1 em { display: block; color: var(--accent); }
+    .subtitle {
+      margin: 0 auto 1.3rem;
+      color: var(--muted);
+      font: clamp(1.2rem, 3.6vw, 1.6rem)/1.3 var(--serif);
+      text-wrap: balance;
+    }
+    .intro-copy { max-width: 36rem; margin-inline: auto; text-align: left; }
+    .hero .button { margin-top: .8rem; }
+
+    .button {
+      display: inline-flex;
+      min-height: 3rem;
+      max-width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: .78rem 1.15rem;
+      border: 1px solid transparent;
+      border-radius: .55rem;
+      background: var(--accent);
+      color: white;
+      font: 750 .85rem/1.35 var(--sans);
+      letter-spacing: .025em;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button:hover { background: var(--accent-dark); }
+    .button:disabled { opacity: .6; cursor: default; }
+
+    .text-button {
+      padding: .5rem 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font: 650 .93rem/1.4 var(--sans);
+      text-decoration: underline;
+      text-underline-offset: .18em;
+      cursor: pointer;
+    }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .navigation { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.25rem; margin-top: 1.5rem; }
+
+    .places {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .65rem;
+      margin: 1.35rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .places li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: .65rem;
+      padding: .9rem;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+    }
+    .places h3 { font-size: 1rem; }
+    .places p { margin: 0; font-size: .92rem; color: var(--muted); }
+
+    .ordinal {
+      display: inline-grid;
+      width: 2rem;
+      min-height: 2rem;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font: 750 .82rem/1 var(--sans);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .form-intro { margin-bottom: .8rem; }
+    .form-intro .text-button { margin-bottom: .6rem; }
+    .form-intro p:last-child { margin-bottom: 0; }
+
+    .progress-box {
+      position: sticky;
+      z-index: 1;
+      top: .5rem;
+      margin-bottom: 1rem;
+      padding: .7rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: .75rem;
+      background: var(--paper);
+      box-shadow: 0 .25rem .9rem #563a2318;
+    }
+    .progress-labels {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem;
+      font-size: .85rem;
+    }
+    .progress-labels span { color: var(--muted); font-variant-numeric: tabular-nums; }
+    progress {
+      display: block;
+      width: 100%;
+      height: .55rem;
+      margin-top: .35rem;
+      border: 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: var(--accent-light);
+      accent-color: var(--accent);
+    }
+    progress::-webkit-progress-bar { background: var(--accent-light); }
+    progress::-webkit-progress-value { background: var(--accent); border-radius: 1rem; }
+    progress::-moz-progress-bar { background: var(--accent); border-radius: 1rem; }
+
+    .question-list { display: grid; gap: .65rem; }
+    .question-card {
+      padding: clamp(.8rem, 3vw, 1.25rem);
+      border: 1px solid var(--line);
+      border-radius: .75rem;
+      background: var(--paper);
+    }
+    fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+    legend { width: 100%; padding: 0; font-weight: 650; line-height: 1.4; }
+    .prompt { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: .65rem; }
+    .prompt-text { padding-top: .27rem; }
+    .choices { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 0 2.65rem; }
+    .choice {
+      display: inline-flex;
+      min-width: 6rem;
+      min-height: 2.8rem;
+      align-items: center;
+      gap: .45rem;
+      padding: .4rem .75rem;
+      border: 1px solid var(--line);
+      border-radius: .5rem;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .choice:hover { background: var(--accent-light); }
+    .choice:has(input:checked) { border-color: var(--accent); background: var(--accent-light); color: var(--accent-dark); }
+    .choice input { width: 1.05rem; height: 1.05rem; margin: 0; accent-color: var(--accent); scroll-margin-top: 6rem; }
+
+    .signature { margin: 1.4rem 0 0; color: var(--muted); }
+    .send-note { margin: .65rem 0 0; font-size: .9rem; color: var(--muted); }
+
+    @media (max-width: 36rem) {
+      .places { grid-template-columns: 1fr; }
+      .button { width: 100%; }
+    }
+
+    @media (max-width: 22rem) {
+      .masthead, main { width: calc(100% - 1.25rem); }
+      .choices { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <p class="brand">Método O Seu Lugar<sup>®</sup></p>
+    <span class="tag">Diagnóstico gratuito</span>
+  </header>
+
+  <main>
+    <section class="card hero" data-screen aria-labelledby="welcome-title">
+      <p class="eyebrow">Os 7 Lugares Emocionais</p>
+      <h1 id="welcome-title" tabindex="-1">
+        Você cuida de todo mundo. <em>Mas quem está cuidando de você?</em>
+      </h1>
+      <p class="subtitle">Descubra de Qual Lugar Emocional Você Está Vivendo</p>
+
+      <div class="intro-copy">
+        <p>Você resolve problemas, cuida da família, trabalha, assume responsabilidades e está sempre disponível para alguém.</p>
+        <p>Mas quando chega a sua vez, falta tempo, falta energia e ainda aparece a culpa.</p>
+        <p>Por que é tão difícil dizer não, descansar ou fazer uma escolha por você?</p>
+        <p>No Método O Seu Lugar®, trabalhamos com 7 Lugares Emocionais que ajudam a compreender padrões que se repetem na família, no trabalho, no dinheiro, nos relacionamentos e na maneira como você cuida de si mesma.</p>
+        <p>Responda às 28 perguntas e descubra quais desses padrões você reconhece na sua vida hoje.</p>
+        <p>Um primeiro passo para compreender o que está acontecendo e começar a olhar para você.</p>
+      </div>
+      <button type="button" class="button" id="start" disabled>COMEÇAR MEU DIAGNÓSTICO GRATUITO</button>
+      <noscript><p>Ative o JavaScript no navegador para responder ao diagnóstico.</p></noscript>
+    </section>
+
+    <section class="card" id="overview" data-screen aria-labelledby="overview-title" hidden>
+      <h2 id="overview-title" tabindex="-1">Conheça os 7 Lugares Emocionais</h2>
+      <p>Antes de responder, conheça os lugares que podem estar influenciando a maneira como você vive, faz suas escolhas e se relaciona com as pessoas.</p>
+      <ol class="places" id="places" role="list"></ol>
+      <div class="navigation">
+        <button type="button" class="button" id="begin-questions">RESPONDER ÀS 28 PERGUNTAS</button>
+        <button type="button" class="text-button" id="back-to-start">Voltar ao início</button>
+      </div>
+    </section>
+
+    <section id="questionnaire" data-screen aria-labelledby="questions-title" hidden>
+      <div class="card form-intro">
+        <button type="button" class="text-button" id="back-to-overview">Voltar à apresentação</button>
+        <h2 id="questions-title" tabindex="-1">Agora é hora de olhar para você</h2>
+        <p>Pense na sua vida como um todo, incluindo família, filhos, casamento, trabalho, dinheiro, amizades e a maneira como você cuida de si mesma.</p>
+        <p>Leia cada pergunta com atenção e responda <strong>SIM</strong> ou <strong>NÃO</strong>, considerando como você tem vivido atualmente.</p>
+        <p>Não existem respostas certas ou erradas. O importante é responder com sinceridade, reconhecendo o que realmente acontece na sua vida.</p>
+      </div>
+
+      <div class="progress-box">
+        <div class="progress-labels">
+          <label for="answer-progress"><strong>Seu progresso</strong></label>
+          <span id="progress-count">0 de 28 respondidas</span>
+        </div>
+        <progress id="answer-progress" value="0" max="28"></progress>
+      </div>
+
+      <form id="diagnostic-form" aria-label="As 28 perguntas">
+        <div class="question-list" id="question-list"></div>
+        <div class="navigation">
+          <button type="submit" class="button">CONCLUIR MEU DIAGNÓSTICO</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="completion" data-screen aria-labelledby="completion-title" hidden>
+      <p class="eyebrow">28 de 28 perguntas respondidas</p>
+      <h2 id="completion-title" tabindex="-1">Diagnóstico concluído!</h2>
+      <p>Você acabou de dar um passo importante ao olhar para si mesma.</p>
+      <p>Durante muito tempo, você pode ter aprendido a cuidar, resolver, ajudar e estar disponível para todos.</p>
+      <p>Mas olhar para suas próprias necessidades também faz parte da vida.</p>
+      <p>Suas respostas ajudam a reconhecer quais Lugares Emocionais aparecem com mais frequência e como esses comportamentos podem estar influenciando suas escolhas, seus relacionamentos e a maneira como você vive.</p>
+      <p>Agora quero te ajudar a compreender melhor o que suas respostas mostram sobre você.</p>
+      <p>Ao enviar suas respostas, você receberá uma devolutiva personalizada, com uma reflexão sobre os Lugares Emocionais identificados e um primeiro direcionamento para olhar com mais consciência para sua vida.</p>
+
+      <div class="navigation">
+        <a class="button" id="send-responses" target="_blank" rel="noopener noreferrer" aria-describedby="send-note">ENVIAR MINHAS RESPOSTAS E RECEBER MINHA DEVOLUTIVA</a>
+      </div>
+      <p class="send-note" id="send-note"></p>
+      <button type="button" class="text-button" id="review-answers">Revisar minhas respostas</button>
+      <p class="signature">Com carinho,<br><strong>Alinne de Pasinatto</strong><br>Método O Seu Lugar®</p>
+    </section>
+  </main>
+
+  <template id="question-template">
+    <div class="question-card">
+      <fieldset>
+        <legend>
+          <span class="prompt"><span class="ordinal"></span><span class="prompt-text"></span></span>
+        </legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" value="SIM" required> SIM</label>
+          <label class="choice"><input type="radio" value="NÃO" required> NÃO</label>
+        </div>
+      </fieldset>
+    </div>
+  </template>
+
+  <script>
+    // Preencha com o número da Alinne em formato internacional, apenas dígitos.
+    // Com este campo vazio, o WhatsApp permite escolher o contato.
+    const whatsappNumber = "5549999728631";
+
+    const places = [
+      {
+        name: "Distância Silenciosa",
+        description: "Quando você guarda o que sente, deixa de falar sobre suas necessidades e acaba se sentindo sozinha, mesmo cercada de pessoas."
+      },
+      {
+        name: "Defesa e Reatividade",
+        description: "Quando uma crítica ou contrariedade faz você sentir que precisa se justificar, se proteger ou provar que está certa."
+      },
+      {
+        name: "Desequilíbrio de Troca",
+        description: "Quando você entrega tanto aos outros que acaba ficando sem tempo, energia ou disposição para cuidar de si."
+      },
+      {
+        name: "Lugar de Mãe",
+        description: "Quando você sente que precisa orientar, corrigir, lembrar ou supervisionar outros adultos, como se tudo dependesse de você."
+      },
+      {
+        name: "Lugar de Salvadora",
+        description: "Quando você assume os problemas de todos e sente que precisa encontrar uma solução, mesmo quando a responsabilidade não é sua."
+      },
+      {
+        name: "Lugar de Fuga",
+        description: "Quando você evita conversas, adia decisões e vai deixando seus sonhos para depois."
+      },
+      {
+        name: "Lugar de Criança",
+        description: "Quando o medo de desagradar, a culpa ou a necessidade de aprovação começam a influenciar suas escolhas."
+      }
+    ];
+
+    // A ordem do Word associa cada conjunto de quatro perguntas a um lugar.
+    const questions = [
+      "Mesmo cercada de pessoas, sinto que ninguém sabe realmente como estou?",
+      "Costumo esconder minhas preocupações para não incomodar ninguém?",
+      "Tenho dificuldade de pedir ajuda, mesmo quando estou precisando?",
+      "Escuto os problemas de todos, mas quase nunca encontro espaço para falar dos meus?",
+      "Quando alguém me critica, sinto necessidade de explicar ou justificar minhas atitudes?",
+      "Uma crítica ou comentário negativo consegue estragar meu dia?",
+      "Quando alguém discorda de mim, sinto que preciso provar que estou certa?",
+      "Quando me sinto injustiçada, acabo reagindo de uma forma que depois me arrependo?",
+      "Sinto que faço muito pelos outros e pouco por mim?",
+      "Costumo dizer sim mesmo quando estou cansada ou sem vontade?",
+      "Tenho dificuldade de descansar porque sempre existe alguma coisa para resolver?",
+      "Sinto que minhas responsabilidades consomem o tempo, a energia ou o dinheiro que gostaria de dedicar a mim?",
+      "Costumo orientar ou corrigir pessoas próximas mesmo quando não pedem minha opinião?",
+      "Sinto que preciso lembrar outras pessoas das responsabilidades que pertencem a elas?",
+      "Fico irritada quando alguém não faz as coisas do jeito que considero correto?",
+      "Tenho dificuldade de confiar que outros adultos conseguirão resolver seus problemas sem minha intervenção?",
+      "Quando alguém que amo está com um problema, sinto que preciso encontrar uma solução?",
+      "Assumo preocupações ou responsabilidades de outras pessoas para evitar que elas sofram?",
+      "Tenho dificuldade de ficar tranquila quando alguém próximo está passando por dificuldades?",
+      "Já deixei meus planos de lado para resolver problemas que não dependiam principalmente de mim?",
+      "Tenho adiado decisões importantes por medo do que pode acontecer?",
+      "Evito conversas difíceis mesmo sabendo que determinados assuntos precisam ser resolvidos?",
+      "Tenho sonhos ou projetos que continuo deixando para quando a vida estiver mais tranquila?",
+      "Quando algo me incomoda, procuro me ocupar com outras coisas para não precisar enfrentar a situação?",
+      "Tenho dificuldade de dizer não porque não quero decepcionar ninguém?",
+      "Preciso da aprovação de outras pessoas para me sentir segura nas minhas decisões?",
+      "Quando alguém fica contrariado comigo, começo a me sentir culpada?",
+      "Tenho medo de perder o carinho ou a aceitação de alguém quando escolho fazer o que é importante para mim?"
+    ];
+
+    const screens = Array.from(document.querySelectorAll("[data-screen]"));
+    const [welcome, overview, questionnaire, completion] = screens;
+    const form = document.getElementById("diagnostic-form");
+    const questionTemplate = document.getElementById("question-template");
+    const questionList = document.getElementById("question-list");
+    const placeList = document.getElementById("places");
+    const progress = document.getElementById("answer-progress");
+    const progressCount = document.getElementById("progress-count");
+    const sendResponses = document.getElementById("send-responses");
+    const sendNote = document.getElementById("send-note");
+    const start = document.getElementById("start");
+
+    places.forEach((place, index) => {
+      const item = document.createElement("li");
+      const number = document.createElement("span");
+      const copy = document.createElement("div");
+      const title = document.createElement("h3");
+      const description = document.createElement("p");
+      number.className = "ordinal";
+      number.textContent = index + 1;
+      number.setAttribute("aria-hidden", "true");
+      title.textContent = place.name;
+      description.textContent = place.description;
+      copy.append(title, description);
+      item.append(number, copy);
+      placeList.append(item);
+    });
+
+    questions.forEach((question, index) => {
+      const row = questionTemplate.content.cloneNode(true);
+      row.querySelector(".ordinal").textContent = index + 1;
+      row.querySelector(".prompt-text").textContent = question;
+      row.querySelectorAll("input").forEach(input => {
+        input.name = "q" + (index + 1);
+      });
+      questionList.append(row);
+    });
+
+    function showScreen(screen) {
+      screens.forEach(panel => { panel.hidden = panel !== screen; });
+      screen.querySelector("h1, h2").focus({ preventScroll: true });
+      window.scrollTo(0, 0);
+    }
+
+    function updateProgress() {
+      const answered = form.querySelectorAll("input:checked").length;
+      progress.value = answered;
+      progressCount.textContent = answered + " de " + questions.length + " respondidas";
+    }
+
+    function buildMessage(answers) {
+      const lines = answers.map((answer, index) =>
+        (index + 1) + ". " + answer + " — " + questions[index]
+      );
+
+      const summary = places.map((place, index) => {
+        const firstQuestion = index * 4;
+        const yesCount = answers.slice(firstQuestion, firstQuestion + 4)
+          .filter(answer => answer === "SIM").length;
+        return place.name + " — " + yesCount + " de 4";
+      });
+
+      return [
+        "Olá, Alinne! Concluí o diagnóstico dos 7 Lugares Emocionais do Método O Seu Lugar® e gostaria de receber minha devolutiva.",
+        "",
+        "*Minhas respostas*",
+        ...lines,
+        "",
+        "*Resumo de SIM por Lugar Emocional*",
+        ...summary
+      ].join("\n");
+    }
+
+    start.addEventListener("click", () => showScreen(overview));
+    document.getElementById("back-to-start").addEventListener("click", () => showScreen(welcome));
+    document.getElementById("begin-questions").addEventListener("click", () => showScreen(questionnaire));
+    document.getElementById("back-to-overview").addEventListener("click", () => showScreen(overview));
+    document.getElementById("review-answers").addEventListener("click", () => showScreen(questionnaire));
+    form.addEventListener("change", updateProgress);
+    window.addEventListener("pageshow", updateProgress);
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const answers = questions.map((_, index) => formData.get("q" + (index + 1)));
+      const message = buildMessage(answers);
+
+      sendResponses.href = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+      sendNote.textContent = whatsappNumber
+        ? "O WhatsApp da Alinne abrirá com a mensagem pronta para você conferir e enviar."
+        : "No WhatsApp, selecione o contato da Alinne, confira a mensagem e toque em enviar.";
+      showScreen(completion);
+    });
+
+    updateProgress();
+    start.disabled = false;
+  </script>
+</body>
+</html>
